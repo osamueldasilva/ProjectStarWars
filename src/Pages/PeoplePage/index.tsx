@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IResultsPeople } from "../../Interface/resultsVeihicles";
+import { IResultsPeople } from "../../Interface/resultsPeoples";
 import { api } from "../../Service";
 import * as S from "./style";
 import arrowBack from "../../assets/icons/arrowBack.svg";
@@ -8,6 +8,7 @@ import View from "../../assets/icons/view.svg";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
+import { Spinner } from "../../Components/Spinner";
 
 export function PeoplePage() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function PeoplePage() {
 
   const [characterId, setCharacterId] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const maxPages = 9; // Número máximo de páginas
+  const maxPages = 9;
   const {
     data: DataPeopleTable,
     refetch,
@@ -25,10 +26,10 @@ export function PeoplePage() {
   async function getDataPeople() {
     try {
       const { data } = await api.get<IResultsPeople>(
-        `https://swapi.dev/api/people/?page=${pagination}`
+        `/people/?page=${pagination}`
       );
       return data;
-    // eslint-disable-next-line no-empty
+      // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 
@@ -76,17 +77,22 @@ export function PeoplePage() {
         <S.Button onClick={backPagination}>Back</S.Button>
       </S.Header>
       <S.Container>
+        <div className="Filters">
+          <>
+            <h2>Filter by name:</h2>
+
+            {DataPeopleTable?.results.map(({ name }, index) => (
+              <select>
+                <option value="todos" selected key={index}>
+                  name
+                </option>
+                <option>{name}</option>
+              </select>
+            ))}
+          </>
+        </div>
         {isLoading ? (
-          <div className="dot-spinner">
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-            <div className="dot-spinner__dot"></div>
-          </div>
+          <Spinner />
         ) : (
           <>
             {!openModal ? (
@@ -99,6 +105,7 @@ export function PeoplePage() {
                         <th>Date of birth</th>
                         <th>Gender</th>
                         <th>Creation date</th>
+                        <th>Preview</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -133,7 +140,7 @@ export function PeoplePage() {
                       display: pagination > 1 ? "inline-block" : "none",
                     }}
                   />
-                  <h1>{pagination} | 9</h1>
+                  <h2>{pagination} | 9</h2>
                   <img
                     src={arrowNext}
                     alt="Next"
@@ -145,7 +152,7 @@ export function PeoplePage() {
                 </footer>
               </>
             ) : (
-              <Modal closeModal={() => setOpenModal(false)} />
+              <Modal closeModal={() => setOpenModal(false)} id={characterId} />
             )}
           </>
         )}

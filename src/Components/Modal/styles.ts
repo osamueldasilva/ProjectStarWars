@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ContentModal = styled.main`
-    width: 50rem;
-    height: 25rem;
+    width: auto;
+    max-height: 35rem;
     border-radius: 5px;
 
     background-color: #0f172a;
@@ -37,13 +37,32 @@ export const ContentModal = styled.main`
 
         padding: 0;
     }
+.Sections{ 
+    width: 100%;
+    display: flex;
+
+    gap: 1rem;
+}
 `
 
 export const Container = styled.section`
-    width: 38rem;
-    height: 20rem;
-    background-color: red;
-
+    max-width: 38rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 0.5rem;
 
+h2 {
+  font-family: 'Star Wars', sans-serif;
+
+}
+
+    ul {
+         list-style-type: none;
+         display: flex;
+         flex-direction: column;
+
+         gap: 1rem;
+    }
 `
