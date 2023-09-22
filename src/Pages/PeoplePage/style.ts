@@ -15,7 +15,21 @@ export const Container = styled.main`
   
       margin: 0;
       height: 4rem;
+
+      display: flex;
+      gap: 1rem;
     }
+    .clearFilter {
+      background-color: #840000;
+    }
+    .clearFilter:hover {
+                background-color: #a10a04;
+            }
+
+
+            .oneOption {
+              background-color: #000000;
+            }
 
     select {
             padding: 10px;
@@ -81,6 +95,10 @@ export const Container = styled.main`
      
       padding: 0;
 
+    }
+
+    button:hover {
+      background-color: #0f174f;
     }
 
     footer {

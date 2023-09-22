@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IResultsPeople } from "../../Interface/resultsPeoples";
-import { api } from "../../Service";
+import { api } from "../../Service/apiStarWars";
 import * as S from "./style";
 import arrowBack from "../../assets/icons/arrowBack.svg";
 import arrowNext from "../../assets/icons/arrowNext.svg";
@@ -9,6 +9,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 import { Spinner } from "../../Components/Spinner";
+import CloseModal from "../../assets/icons/Close.svg";
 
 export function PeoplePage() {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ export function PeoplePage() {
 
   const [characterId, setCharacterId] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState(
+    "Filter by all characters"
+  );
+
   const maxPages = 9;
   const {
     data: DataPeopleTable,
@@ -71,32 +76,47 @@ export function PeoplePage() {
     setOpenModal(true);
   }
 
+  function clearFilter() {
+    setSelectedCharacter("Filter by all characters");
+  }
+
   return (
     <>
       <S.Header>
         <S.Button onClick={backPagination}>Back</S.Button>
       </S.Header>
       <S.Container>
-        <div className="Filters">
-          <>
-            <h2>Filter by name:</h2>
-
-            {DataPeopleTable?.results.map(({ name }, index) => (
-              <select>
-                <option value="todos" selected key={index}>
-                  name
-                </option>
-                <option>{name}</option>
-              </select>
-            ))}
-          </>
-        </div>
         {isLoading ? (
           <Spinner />
         ) : (
           <>
             {!openModal ? (
               <>
+                <div className="Filters">
+                  <>
+                    <h2>Filter by all characters:</h2>
+
+                    <select
+                      onChange={(e) => setSelectedCharacter(e.target.value)}
+                    >
+                      <option
+                        value="Filter by all characters"
+                        className="oneOption"
+                      >
+                        Filter by all character
+                      </option>
+                      {DataPeopleTable?.results.map(({ name, url }) => (
+                        <option key={url} value={url}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button className="clearFilter" onClick={clearFilter}>
+                      <img src={CloseModal} alt="" />
+                    </button>
+                  </>
+                </div>
                 <div>
                   <table>
                     <thead>
@@ -110,24 +130,31 @@ export function PeoplePage() {
                     </thead>
                     <tbody>
                       {DataPeopleTable &&
-                        DataPeopleTable.results.map(
-                          (
-                            { name, birth_year, gender, created, url },
-                            index
-                          ) => (
-                            <tr key={index}>
-                              <td>{name}</td>
-                              <td>{birth_year}</td>
-                              <td>{gender}</td>
-                              <td>{formatDateTime(created)}</td>
-                              <td>
-                                <button onClick={() => handleViewClick(url)}>
-                                  <img src={View} alt="" />
-                                </button>
-                              </td>
-                            </tr>
+                        DataPeopleTable.results
+                          .filter(
+                            ({ url }) =>
+                              selectedCharacter ===
+                                "Filter by all characters" ||
+                              url === selectedCharacter
                           )
-                        )}
+                          .map(
+                            (
+                              { name, birth_year, gender, created, url },
+                              index
+                            ) => (
+                              <tr key={index}>
+                                <td>{name}</td>
+                                <td>{birth_year}</td>
+                                <td>{gender}</td>
+                                <td>{formatDateTime(created)}</td>
+                                <td>
+                                  <button onClick={() => handleViewClick(url)}>
+                                    <img src={View} alt="" />
+                                  </button>
+                                </td>
+                              </tr>
+                            )
+                          )}
                     </tbody>
                   </table>
                 </div>

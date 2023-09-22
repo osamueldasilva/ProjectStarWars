@@ -65,4 +65,8 @@ h2 {
 
          gap: 1rem;
     }
+
+    img {
+        max-height: 25rem;
+    }
 `

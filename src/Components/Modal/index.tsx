@@ -1,9 +1,10 @@
 import * as S from "./styles";
 import CloseModal from "../../assets/icons/Close.svg";
 import { useQuery } from "react-query";
-import { api } from "../../Service";
+import { api } from "../../Service/apiStarWars";
 import { getJustOneCharacter } from "../../Interface/getJustOneCharacter";
 import { Spinner } from "../Spinner";
+import { useState } from "react";
 
 interface IModalState {
   closeModal: () => void;
@@ -11,6 +12,10 @@ interface IModalState {
 }
 
 export function Modal({ closeModal, id }: IModalState) {
+  const [image] = useState(
+    `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`
+  );
+
   const { data: DataPeopleModal, isLoading } = useQuery(
     ["DataPeopleTable"],
     getDataPeopleModal
@@ -21,6 +26,7 @@ export function Modal({ closeModal, id }: IModalState) {
       const { data } = await api.get<getJustOneCharacter>(`/people/${id}`);
 
       return data;
+      // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 
@@ -71,7 +77,9 @@ export function Modal({ closeModal, id }: IModalState) {
                 </>
               )}
             </S.Container>
-            <S.Container></S.Container>
+            <S.Container>
+              <img src={image} alt="Imagem do personagem" />
+            </S.Container>
           </div>
         </S.ContentModal>
       )}
