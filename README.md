@@ -1,27 +1,20 @@
-# React + TypeScript + Vite
+#Projeto Star-Wars
+O Projeto Star-Wars foi criado com o intuito de colocar em prática e aprimorar minhas habilidades enquanto exploro novas ferramentas. Embora não tenha seguido um processo de prototipação, ele contem alguns recursos que são encontrados em muitas aplicações incluindo tabelas interativas, filtros e modais de visualização.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#Tecnologias Utilizadas
+Para a implementação deste projeto, optamos por utilizar as seguintes tecnologias:
 
-Currently, two official plugins are available:
+ReactJs com TypeScript: A escolha dessa combinação dessas duas ferramentas da a vantagem pra um sistema grande e complexo a evitar erros comuns durante o desenvolvimento.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React Query: O uso do React Query facilitou a usabilidade dos dados, permitindo-nos buscar e atualizar informações de forma simples e eficaz.
 
-## Expanding the ESLint configuration
+Styled Components: Optei por usar o Styled Components para a estilização.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#Funcionalidades Principais:
+O Projeto Star-Wars oferece algumas funcionalidades:
 
-- Configure the top-level `parserOptions` property like this:
+Visualização de Dados: Os dados relacionados ao universo Star-Wars podem ser explorados de forma interativa.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Filtro: O filtro permitem ao usuário escolher a visualização dos dados de acordo com suas preferência.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Integração com Star-Wars API: Nosso projeto esta conectado à API SWAPI 'The Star Wars API', garantindo que as informações sejam atualizadas e precisas.
