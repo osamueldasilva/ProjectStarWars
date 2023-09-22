@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { IResultsPeople } from "../../Interface/resultsPeoples";
 import { api } from "../../Service/apiStarWars";
 import * as S from "./style";
