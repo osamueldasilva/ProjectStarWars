@@ -56,6 +56,7 @@ export const Container = styled.main`
     table {
         width: 90%;
         overflow: auto;
+        border-collapse: collapse;
         background-color: #202020;
     }
 
